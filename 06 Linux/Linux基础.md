@@ -10,7 +10,7 @@
 ![[Pasted image 20260802122925.png]]
 
 ------------------------------
-## 常用命令
+# 常用命令
 
 #### ls  列出目录的内容  list
 ls -l   以长格式显示详细信息
@@ -99,7 +99,7 @@ unzip file.zip -d dir  解压到指定目录
 以易读格式显示磁盘空间情况
 
 
-### 高频选项
+## 高频选项
 -l  long 长格式显示详细信息
 -a  all 显示所有内容，包括隐藏文件
 -h  human-readable 易读格式显示大小
@@ -138,40 +138,92 @@ a  在光标后插入
 o  在当前行下方新建一行并插入
 O  在当前行上方新建一行并插入
 **删除文本：** 
-x
-dw
-ddndd
-D
-d$
+x  删除光标所在字符
+dw  删除当前单词
+dd  删除当前行
+ndd  删除n行
+D   删除到行尾
+d$  删除到行尾
 **复制粘贴：** 
-yy
-nyy
-yw
-p
-P
+yy   复制当前行
+nyy  复制n行
+yw   复制当前单词
+p    粘贴到光标下方
+P    粘贴到光标上方
 **撤销重做：** 
-u
-Ctrl+r
-U
+u  撤销上一步操作
+Ctrl+r  重做撤销的操作
+U  撤销对当前行的所有操作
 
 ### 查找替换
 **查找：** 
-/
-？
-n
-N
+/关键词  向下查找
+？关键词   向上查找
+n  跳转到下一个匹配
+N  跳转到上一个匹配
 **替换：** 
-:s/old/new
-:s/old/new/g
-:%s/old/new/g
-:%s/old/new/gc
+:s/old/new    替换当前行第一个匹配
+:s/old/new/g  替换当前行所有匹配
+:%s/old/new/g 全局替换所有匹配
+:%s/old/new/gc 全局替换并询问确认
 
 ### 高级实用功能
-:!command
+:!command   在VI中执行系统命令
+:r !command 将命令结果插入文件
+:set nu     显示行号
+:set nonu   隐藏行号
+:sp     水平分屏
+:vsp    垂直分屏
+Ctrl+w  切换分屏窗口
+
+---------------------
+# shell脚本
+
+### 脚本结构
+#!/bin/bash  脚本声明
+注释用 # 开头
+执行权限： chmod +x script.sh
+运行方式： ./script.sh  或  bash script.sh
+
+### 变量使用
+定义变量： name="vlaue"
+使用变量： echo name 命令结果赋值： result=(command)
+位置参数： 12 $3  (脚本接收的参数)
+
+### 流程控制
+if[条件]；then
+	执行命令
+fi
+
+常用判断： -eq等于   -ne不等于   -gt大于   -lt小于
+文件判断： -f文件存在   -d目录存在    -x可执行
+
+### 循环结构
+for循环： for i in 1 2 3; do...done
+while循环： while [条件]； do...done
+批量处理： for file in *.txt; do...done
+
+### 函数封装
+定义函数： function name(){...}
+调用参数： name 参数1 参数2
+返回值： return 0 或 echo “结果”
+
+### 输入输出处理
+读取用户输入：read -p ""var
+输出到文件： echo "">file.txt
+追加到文件： echo"">>file.txt
+管道符: command1|command2
 
 
 
-### VI编辑器效率提升快捷键
+
+
+
+
+
+
+
+
 
 
 
