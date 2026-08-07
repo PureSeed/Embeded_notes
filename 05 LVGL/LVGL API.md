@@ -1,4 +1,3 @@
-
 ### lv_obj_t:
 1. 是所有对象的模板，定义了对象都具备的基础属性和方法
 2. 屏幕是它的一个具体实例，可以把屏幕想象成一个最大的容器对象，它是其他组件的根节点
@@ -35,20 +34,61 @@ lv_obj_delete_delayed(slider1,3000);   //释放内存
 
 ```
 
+### 颜色 状态 不透明度
+```C
+//设置组件背景颜色                                          每个单独的部分都可以设置为不同样式
+lv_obj_set_style_bg_color(obj, lv_palette_main(LV_PALETTE_BLUE), LV_PART_MAIN);   //lv_palette_main():调色盘
+lv_obj_set_style_bg_color(obj, lv_palette_main(LV_PALETTE_RED), LV_PART_SCROLLBAR);   //LV_PART_SCROLLBAR 滚动条
+
+//不同状态可以设置为不同样式
+lv_obj_set_style_bg_color(btn1, lv_palette_main(LV_PALETTE_GREEN), LV_PART_MAIN);   //默认状态
+lv_obj_set_style_bg_color(btn1, lv_palette_main(LV_PALETTE_RED), LV_STATE_PRESSED);   //按下后变红
+
+// 设置不透明度  lv_color_lighten(c,100):0就是不改变，255就是白色,设置颜色深浅
+lv_obj_set_style_bg_color(slider,lv_color_lighten(lv_palette_main(LV_PALETTE_GREEN)), LV_PART_MAIN); 
+lv_obj_set_style_opa(silder,LV_OPA_30, LV_PART_MAIN);
+
+```
+
+
 ### 事件
 你可以为一个组件分配一个或多个回调，当组件件 被点击、释放、拖拽、被删除等。
 ```C
-
+// 添加点击事件             回调函数         触发事件           传递参数
 lv_obj_add_event_cb(btn, my_btn_event_cb, LV_EVENT_CLICKED, NULL);
-...
 
+//回调函数
 void my_btn_event_cb(lv_event_t * e)
 {
     printf("Clicked\n");
 }
+-----------------------------------------------------------------------------------------------
+lv_obj_add_event_cb(btn, my_btn_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
+
+static void slider_callback(lv_event_t * e)
+{
+	//获取当前滑块的值 
+	lv_obj_t * slider = lv_event_get_target(e);
+	int32_t value = lv_slider_get_value(slider);
+	printf("%d",value);
+	
+}
 ```
 
+### 布局 对齐
+``` C
+//弹性布局
+//布局
+lv_obj_t * scr = lv_screen_active();
+lv_obj_set_layout(scr, LV_LAYOUT_FLEX);   //设置为弹性布局的容器
+lv_obj_set_flex_flow(scr,LV_FLEX_FLOW_ROW);   //设置布局顺序为按行排序，不换行
+//对齐  第一个参数：整体结构左对齐/右对齐或上对齐/下对齐   第二个参数：单个元素是哪种对齐   第三个参数：轨道布局的起始位置是哪种对齐
+lv_obj_set_flex_align(scr,LV_FLEX_ALIGN_START,LV_FLEX_ALING_END,LV_FLEX_ALIGN_START);
 
+//网格布局
+
+
+```
 
 
 
