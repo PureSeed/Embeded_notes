@@ -132,7 +132,7 @@ static void scroll_callback(lv_event_t *e)
 
 ## 静态组件
 
-### 标签(lv_label)
+#### 标签(lv_label)
 ``` C
 uint16_t label_value=0;
 
@@ -150,14 +150,13 @@ static void btn_event_cb(lv_event_t *e)
 }
 ```
 
-### 动画(lv_anim)
+#### 动画(lv_anim)
 ``` C 
-/* INITIALIZE AN ANIMATION*-----------------------*/
-
+//声明两个结构体，
 static lv_anim_t   anim_template;
 static lv_anim_t * running_anim;
 
-lv_anim_init(&anim_template);
+lv_anim_init(&anim_template);  //初始化
 
 /* MANDATORY SETTINGS
  *------------------*/
@@ -214,7 +213,7 @@ running_anim = lv_anim_start(&anim_template);   /* Start the Animation */
 
 ```
 
-### 矢量动画(lv_lottie)
+#### 矢量动画(lv_lottie)
 ``` C
 
 
@@ -223,12 +222,53 @@ running_anim = lv_anim_start(&anim_template);   /* Start the Animation */
 
 ```
 
+#### 日历图(lv_calendar)
+``` C
+//创建日历
+lv_obj_t *calendar = lv_calendar_create(lv_screen_active());
+//设置尺寸
+lv_obj_set_size(calendar,300,300);
+//设置日历所处的位置
+lv_obj_align(calendar,LV_ALIGN_CENTER,0,0);
+//设置日历的日期
+lv_calendar_set_today_date(calendar,2026,02,6);
+//设置日历显示的月份
+lv_calendar_set_month_shown(calendar,2026,02);
+//添加年和月份的选择
+lv_calendar_add_header_arrow(calendar);
+//修改为中国农历
+lv_calendar_set_chinese_mode(calendar,true);
+//修改字体类型=>修改为包含中文的字体
+lv_obj_set_style_text_font(calendar,&lv_font_source_han_sans_sc_14_cjk,LV_PART_MAIN);
+
+
+//添加点击事件
+lv_obj_add_event_cb(calendar,calendar_event_cb,LV_EVENT_VALUE_CHANGED,NULL);
+
+void calendar_event_cb(lv_event *e)
+{
+	//获取当前日历
+	lv_obj_t *calendar = lv_event_get_current_target(e);
+	lv_calendar_dat_et date;
+	lv_calendar_get_pressed_date(calendar,&date);
+	//将点击的日期高亮
+	lv_calendar_set_highlighted_dates(calendar,&date,1);
+}
+```
+ 
+#### 表格(lv_table)
+``` C
+
+
+```
+
+#### 图表(lv_chart)
+``` C
 
 
 
 
-
-
+```
 
 
 
