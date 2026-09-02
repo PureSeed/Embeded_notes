@@ -48,9 +48,28 @@ lv_obj_set_style_bg_color(btn1, lv_palette_main(LV_PALETTE_RED), LV_STATE_PRESSE
 // 设置不透明度  lv_color_lighten(c,100):0就是不改变，255就是白色,设置颜色深浅
 lv_obj_set_style_bg_color(slider,lv_color_lighten(lv_palette_main(LV_PALETTE_GREEN)), LV_PART_MAIN); 
 lv_obj_set_style_opa(silder,LV_OPA_30, LV_PART_MAIN);
-
 ```
 
+### 定时器（lv_timer）
+注册一个函数，让它定期被调用。这些定时器在 `lv_timer_handler()` 函数中进行处理和调用，该函数需要每隔几毫秒调用一次。
+```C
+//定时器的回调函数
+void my_timer(lv_timer_t * timer)
+{
+  /*Use the user_data*/
+  uint32_t * user_data = timer->user_data;
+  printf("my_timer called with user data: %d\n", *user_data);
+
+  /*Do something with LVGL*/
+  if(something_happened) {
+    something_happened = false;
+    lv_button_create(lv_screen_active(), NULL);
+  }
+}
+...
+static uint32_t user_data = 10;
+lv_timer_t * timer = lv_timer_create(my_timer, 500,  &user_data);  //创建定时器
+```
 
 ### 事件(event)
 你可以为一个组件分配一个或多个回调，当组件件 被点击、释放、拖拽、被删除等。
