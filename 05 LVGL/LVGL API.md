@@ -50,8 +50,9 @@ lv_obj_set_style_bg_color(slider,lv_color_lighten(lv_palette_main(LV_PALETTE_GRE
 lv_obj_set_style_opa(silder,LV_OPA_30, LV_PART_MAIN);
 ```
 
-### 定时器（lv_timer）
+### ==定时器（lv_timer）==
 注册一个函数，让它定期被调用。这些定时器在 `lv_timer_handler()` 函数中进行处理和调用，该函数需要每隔几毫秒调用一次。
+主要用于一些需要定时响应的东西，比如定时更新时间，电量等等，与事件的区别在于事件是由用户的动作触发的，而定时器是时间定期触发
 ```C
 //定时器的回调函数
 void my_timer(lv_timer_t * timer)
@@ -68,10 +69,10 @@ void my_timer(lv_timer_t * timer)
 }
 ...
 static uint32_t user_data = 10;
-lv_timer_t * timer = lv_timer_create(my_timer, 500,  &user_data);  //创建定时器
+lv_timer_t * timer = lv_timer_create(my_timer, 500,  &user_data);  //创建定时器，500毫秒刷新一次
 ```
 
-### 事件(event)
+### ==事件(event)==
 你可以为一个组件分配一个或多个回调，当组件件 被点击、释放、拖拽、被删除等。
 ```C
 // 添加点击事件             回调函数         触发事件           传递参数
