@@ -86,6 +86,18 @@ power_enable();  //电源使能
 ## 条件编译
 **什么是条件编译？** 
 条件编译是C语言的一种预处理指令，通过#if、#else、#endif等指令，让编译器根据不同的条件编译不同的代码段。
+**#error：** 编译错误指令，配合条件编译指令在编译阶段抛出错误，终止编译，实现非常灵活的编译检查，提前发现问题
+```C
+#if CONFIG_USE_DEVICE_AEC && CONFIG_USE_SERVER_AEC
+#error "CONFIG_USE_DEVICE_AEC and CONFIG_USE_SERVER_AEC cannot be enabled at the same time"  
+#elif CONFIG_USE_DEVICE_AEC
+    aec_mode_ = kAecOnDeviceSide;
+#elif CONFIG_USE_SERVER_AEC
+    aec_mode_ = kAecOnServerSide;
+#else
+    aec_mode_ = kAecOff;
+#endif
+```
  
 **为什么要用条件编译？** 
 **代码复用：** 同一个代码库支持多个硬件版本，不用维护多套代码
