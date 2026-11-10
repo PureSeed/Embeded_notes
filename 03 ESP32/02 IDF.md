@@ -327,7 +327,7 @@ void uart_pron()
 
 -----
 
-## WI-FI
+# WI-FI
 
 #### **==工作模式==**
 **STA模式：** 连接WiFi上网
@@ -351,9 +351,7 @@ void uart_pron()
 4. **创建事件循环组并注册事件处理函数：** 监听WiFi状态变化，事件触发时自动执行对应的处理逻辑
 5. **启动WiFi并连接
 
-
-
-#### Station 模式
+### Station 模式
 ```c
 //事件函数
 void WiFi_sta_event_handler(void* event_handler_arg, esp_event_base_t event_base, int32_t event_id, void* event_data)
@@ -414,7 +412,7 @@ void WiFi_sta_init(void)
 
 ```
 
-#### AP模式 
+### AP模式 
 ```c 
 void WiFi_sta_event_handler(void* event_handler_arg, esp_event_base_t event_base, int32_t event_id, void* event_data)
 {
@@ -462,10 +460,28 @@ void WiFi_sta_init(void)
 }
 ```
 
-#### 获取网络时间
+### 配网
+**作用：** 让用户通过手机APP或网页输入WIFI密码，设备自动连接。先配网，配网成功后进入STA或AP模式
+
+**配网方式：** 
+**SmartConfig配网：** 用户在手机APP上输入WIFI密码，**APP** 通过广播或组播的方式把密码发送给ESP32，ESP32收到密码后自动连接WIFI
+**SoftAP配网：** ESP32首次开机时作为热点，用户连接到ESP32的人热点，通过**网页** 输入WIFI密码，ESP32收到密码后自动连接WIFI。
+**蓝牙配网：** ESP32首次开机时开启蓝牙，用户通过手机APP连接到**蓝牙** ，输入WIFI密码，ESP32收到密码后自动连接WIFI。
 ```c
 
+
+
+
+
 ```
+
+
+
+
+
+
+
+
 
 ------------
 
